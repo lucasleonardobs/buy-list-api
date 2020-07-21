@@ -1,19 +1,14 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
+import Order from '../models/Order';
 
 const ordersRouter = Router();
 
-const orders = [];
+const orders: Order[] = [];
 
 ordersRouter.post('/', (request, response) => {
   const { amount, totalPrice, product } = request.body;
 
-  const order = {
-    id: uuid(),
-    amount,
-    totalPrice,
-    product,
-  };
+  const order = new Order(amount, totalPrice, product);
 
   orders.push(order);
 
