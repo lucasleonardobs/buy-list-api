@@ -1,16 +1,20 @@
 import Order from '../models/Order';
 
 class OrdersRepository {
-  private order: Order[];
+  private orders: Order[];
 
   constructor() {
-    this.order = [];
+    this.orders = [];
+  }
+
+  public all(): Order[] {
+    return this.orders;
   }
 
   public create(amount: number, totalPrice: number, product: string): Order {
     const order = new Order(amount, totalPrice, product);
 
-    this.order.push(order);
+    this.orders.push(order);
 
     return order;
   }
