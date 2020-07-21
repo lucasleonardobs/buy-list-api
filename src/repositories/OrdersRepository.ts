@@ -1,5 +1,11 @@
 import Order from '../models/Order';
 
+interface CreateOrderDTO {
+  amount: number;
+  totalPrice: number;
+  product: string;
+}
+
 class OrdersRepository {
   private orders: Order[];
 
@@ -11,8 +17,8 @@ class OrdersRepository {
     return this.orders;
   }
 
-  public create(amount: number, totalPrice: number, product: string): Order {
-    const order = new Order(amount, totalPrice, product);
+  public create({ amount, totalPrice, product }: CreateOrderDTO): Order {
+    const order = new Order({ amount, totalPrice, product });
 
     this.orders.push(order);
 

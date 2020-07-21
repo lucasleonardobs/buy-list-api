@@ -9,7 +9,7 @@ class Order {
 
   product: string;
 
-  constructor(amount: number, totalPrice: number, product: string) {
+  constructor({ amount, totalPrice, product }: Omit<Order, 'id'>) {
     this.id = uuid();
     this.amount = amount;
     this.totalPrice = totalPrice;

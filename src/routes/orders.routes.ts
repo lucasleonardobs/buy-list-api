@@ -14,7 +14,11 @@ ordersRouter.get('/', (request, response) => {
 ordersRouter.post('/', (request, response) => {
   const { amount, totalPrice, product } = request.body;
 
-  const order = ordersRepository.create(amount, totalPrice, product);
+  const order = ordersRepository.create({
+    amount,
+    totalPrice,
+    product,
+  });
 
   return response.json(order);
 });
