@@ -1,16 +1,14 @@
 import { Router } from 'express';
-import Order from '../models/Order';
+import OrdersRepository from '../repositories/OrdersRepository';
 
 const ordersRouter = Router();
 
-const orders: Order[] = [];
+const ordersRepository = new OrdersRepository();
 
 ordersRouter.post('/', (request, response) => {
   const { amount, totalPrice, product } = request.body;
 
-  const order = new Order(amount, totalPrice, product);
-
-  orders.push(order);
+  const order = ordersRepository.create(amount, totalPrice, product);
 
   return response.json(order);
 });

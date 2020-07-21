@@ -12,7 +12,7 @@ class Order {
   constructor(amount: number, totalPrice: number, product: string) {
     this.id = uuid();
     this.amount = amount;
-    this.totalPrice = amount;
+    this.totalPrice = totalPrice;
     this.product = product;
   }
 }
