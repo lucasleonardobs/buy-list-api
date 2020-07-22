@@ -1,8 +1,10 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
+
 import OrdersRepository from '../repositories/OrdersRepository';
+import CreateOrderService from '../services/CreateOrderService';
 
 const ordersRouter = Router();
-
 const ordersRepository = new OrdersRepository();
 
 ordersRouter.get('/', (request, response) => {
@@ -11,16 +13,29 @@ ordersRouter.get('/', (request, response) => {
   return response.json(orders);
 });
 
-ordersRouter.post('/', (request, response) => {
-  const { amount, totalPrice, product } = request.body;
+ordersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      quantity: Joi.number().required(),
+      totalCost: Joi.number().required(),
+      product: Joi.object({
+        name: Joi.string().required(),
+        description: Joi.string().required(),
+        unitPrice: Joi.number().required(),
+        category: Joi.string().required(),
+      }),
+    },
+  }),
+  (request, response) => {
+    const { quantity, totalCost, product } = request.body;
 
-  const order = ordersRepository.create({
-    amount,
-    totalPrice,
-    product,
-  });
+    const createOrder = new CreateOrderService(ordersRepository);
 
-  return response.json(order);
-});
+    const order = createOrder.execute({ quantity, totalCost, product });
+
+    return response.json(order);
+  },
+);
 
 export default ordersRouter;
