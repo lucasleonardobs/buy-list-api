@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
@@ -5,38 +6,34 @@ import OrdersRepository from '../repositories/OrdersRepository';
 import CreateOrderService from '../services/CreateOrderService';
 
 const ordersRouter = Router();
-const ordersRepository = new OrdersRepository();
-
-ordersRouter.get('/', (request, response) => {
-  const orders = ordersRepository.all();
-
-  return response.json(orders);
-});
 
 ordersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
       quantity: Joi.number().required(),
-      totalCost: Joi.number().required(),
-      product: Joi.object({
-        name: Joi.string().required(),
-        description: Joi.string().required(),
-        unitPrice: Joi.number().required(),
-        category: Joi.string().required(),
-      }),
+      total_cost: Joi.number().required(),
+      product: Joi.string().required(),
     },
   }),
-  (request, response) => {
-    const { quantity, totalCost, product } = request.body;
+  async (request, response) => {
+    const { quantity, total_cost, product } = request.body;
 
-    const createOrder = new CreateOrderService(ordersRepository);
+    const createProduct = new CreateOrderService();
 
-    const order = createOrder.execute({ quantity, totalCost, product });
+    const order = await createProduct.execute({
+      quantity,
+      total_cost,
+      product,
+    });
 
     return response.json(order);
   },
 );
+
+ordersRouter.put('/', (request, response) => {
+  // Editar umpedido
+});
 
 ordersRouter.delete('/', (request, response) => {
   // Remover um pedido

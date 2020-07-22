@@ -1,21 +1,19 @@
-import { uuid } from 'uuidv4';
-import Product from './Product';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('orders')
 class Order {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   quantity: number;
 
-  totalCost: number;
+  @Column()
+  // eslint-disable-next-line camelcase
+  total_cost: number;
 
-  product: Product;
-
-  constructor({ quantity, totalCost, product }: Omit<Order, 'id'>) {
-    this.id = uuid();
-    this.quantity = quantity;
-    this.totalCost = totalCost;
-    this.product = product;
-  }
+  @Column()
+  product: string;
 }
 
 export default Order;

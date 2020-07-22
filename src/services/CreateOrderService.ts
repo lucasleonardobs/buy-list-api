@@ -1,27 +1,31 @@
+/* eslint-disable camelcase */
+import { getCustomRepository } from 'typeorm';
+
 import Order from '../models/Order';
-import Product from '../models/Product';
 
 import OrdersRepository from '../repositories/OrdersRepository';
 
 interface Request {
   quantity: number;
-  totalCost: number;
-  product: Product;
+  total_cost: number;
+  product: string;
 }
 
 class CreateOrderService {
-  private ordersRepository: OrdersRepository;
+  public async execute({
+    quantity,
+    total_cost,
+    product,
+  }: Request): Promise<Order> {
+    const ordersRepository = getCustomRepository(OrdersRepository);
 
-  constructor(ordersRepository: OrdersRepository) {
-    this.ordersRepository = ordersRepository;
-  }
-
-  public execute({ quantity, totalCost, product }: Request): Order {
-    const order = this.ordersRepository.create({
+    const order = ordersRepository.create({
       quantity,
-      totalCost,
+      total_cost,
       product,
     });
+
+    await ordersRepository.save(order);
 
     return order;
   }

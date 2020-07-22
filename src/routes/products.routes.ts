@@ -1,17 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { getCustomRepository } from 'typeorm';
 
 import CreateProductService from '../services/CreateProductService';
-import ProductsRepository from '../repositories/ProductsRepository';
 
 const productsRouter = Router();
 
 productsRouter.get('/', async (request, response) => {
-  const productsRepository = getCustomRepository(ProductsRepository);
-  const products = await productsRepository.find();
-
-  return response.json(products);
+  // list quantity
 });
 
 productsRouter.post(
