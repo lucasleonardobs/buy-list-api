@@ -1,23 +1,21 @@
-import { uuid } from 'uuidv4';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('products')
 class Product {
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
+  @Column()
   name: string;
 
+  @Column()
   description: string;
 
+  @Column()
   unitPrice: number;
 
+  @Column()
   category: string;
-
-  constructor({ name, description, unitPrice, category }: Omit<Product, 'id'>) {
-    this.id = uuid();
-    this.name = name;
-    this.description = description;
-    this.unitPrice = unitPrice;
-    this.category = category;
-  }
 }
 
 export default Product;
