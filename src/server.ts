@@ -1,6 +1,7 @@
 import express from 'express';
 import { errors } from 'celebrate';
 
+import 'reflect-metadata';
 import './database';
 
 import routes from './routes';
