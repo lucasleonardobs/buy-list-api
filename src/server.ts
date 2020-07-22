@@ -1,6 +1,8 @@
 import express from 'express';
 import { errors } from 'celebrate';
 
+import './database';
+
 import routes from './routes';
 
 const app = express();

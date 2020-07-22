@@ -8,9 +8,7 @@ const ordersRouter = Router();
 const ordersRepository = new OrdersRepository();
 
 ordersRouter.get('/', (request, response) => {
-  const orders = ordersRepository.all();
-
-  return response.json(orders);
+  // listar quantidade de pedidos
 });
 
 ordersRouter.post(
