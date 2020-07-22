@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+/* eslint-disable camelcase */
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+
+import Product from './Product';
 
 @Entity('orders')
 class Order {
@@ -13,7 +22,11 @@ class Order {
   total_cost: number;
 
   @Column()
-  product: string;
+  product_id: string;
+
+  @OneToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
 }
 
 export default Order;

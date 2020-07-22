@@ -2,7 +2,6 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import OrdersRepository from '../repositories/OrdersRepository';
 import CreateOrderService from '../services/CreateOrderService';
 
 const ordersRouter = Router();
@@ -17,14 +16,14 @@ ordersRouter.post(
     },
   }),
   async (request, response) => {
-    const { quantity, total_cost, product } = request.body;
+    const { quantity, total_cost, product_id } = request.body;
 
     const createProduct = new CreateOrderService();
 
     const order = await createProduct.execute({
       quantity,
       total_cost,
-      product,
+      product_id,
     });
 
     return response.json(order);
