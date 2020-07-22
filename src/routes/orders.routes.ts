@@ -38,4 +38,8 @@ ordersRouter.post(
   },
 );
 
+ordersRouter.delete('/', (request, response) => {
+  // Remover um pedido
+});
+
 export default ordersRouter;

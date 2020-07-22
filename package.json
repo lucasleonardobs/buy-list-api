@@ -10,6 +10,7 @@
     "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
+    "celebrate": "^12.1.2",
     "express": "^4.17.1",
     "uuidv4": "^6.2.0"
   },

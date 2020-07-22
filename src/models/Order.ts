@@ -1,18 +1,19 @@
 import { uuid } from 'uuidv4';
+import Product from './Product';
 
 class Order {
   id: string;
 
-  amount: number;
+  quantity: number;
 
-  totalPrice: number;
+  totalCost: number;
 
-  product: string;
+  product: Product;
 
-  constructor({ amount, totalPrice, product }: Omit<Order, 'id'>) {
+  constructor({ quantity, totalCost, product }: Omit<Order, 'id'>) {
     this.id = uuid();
-    this.amount = amount;
-    this.totalPrice = totalPrice;
+    this.quantity = quantity;
+    this.totalCost = totalCost;
     this.product = product;
   }
 }
