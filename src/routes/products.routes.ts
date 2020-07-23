@@ -5,9 +5,9 @@ import CreateProductService from '../services/CreateProductService';
 
 const productsRouter = Router();
 
-productsRouter.get('/', async (request, response) => {
-  // list quantity
-});
+// productsRouter.get('/', async (request, response) => {
+// list quantity
+// });
 
 productsRouter.post(
   '/',
@@ -35,12 +35,12 @@ productsRouter.post(
   },
 );
 
-productsRouter.put('/', (request, response) => {
-  // Editar produto
-});
+// productsRouter.put('/', (request, response) => {
+// Editar produto
+// });
 
-productsRouter.delete('/', (request, response) => {
-  // Remover um produto
-});
+// productsRouter.delete('/', (request, response) => {
+// Remover um produto
+// });
 
 export default productsRouter;

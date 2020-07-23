@@ -12,7 +12,7 @@ ordersRouter.post(
     [Segments.BODY]: {
       quantity: Joi.number().required(),
       total_cost: Joi.number().required(),
-      product: Joi.string().required(),
+      product_id: Joi.string().required(),
     },
   }),
   async (request, response) => {
@@ -30,12 +30,12 @@ ordersRouter.post(
   },
 );
 
-ordersRouter.put('/', (request, response) => {
-  // Editar umpedido
-});
+// ordersRouter.put('/', (request, response) => {
+// Editar umpedido
+// });
 
-ordersRouter.delete('/', (request, response) => {
-  // Remover um pedido
-});
+// ordersRouter.delete('/', (request, response) => {
+// Remover um pedido
+// });
 
 export default ordersRouter;
