@@ -3,8 +3,11 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
 import CreateOrderService from '../services/CreateOrderService';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const ordersRouter = Router();
+
+ordersRouter.use(ensureAuthenticated);
 
 ordersRouter.post(
   '/',

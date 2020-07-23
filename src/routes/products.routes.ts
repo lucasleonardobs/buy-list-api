@@ -5,6 +5,8 @@ import { getCustomRepository } from 'typeorm';
 import ProductsRepository from '../repositories/ProductsRepository';
 import CreateProductService from '../services/CreateProductService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const productsRouter = Router();
 
 productsRouter.get('/', async (request, response) => {
@@ -24,6 +26,7 @@ productsRouter.post(
       category: Joi.string().required(),
     },
   }),
+  ensureAuthenticated,
   async (request, response) => {
     const { name, description, unitPrice, category } = request.body;
 
@@ -40,11 +43,11 @@ productsRouter.post(
   },
 );
 
-// productsRouter.put('/', (request, response) => {
+// productsRouter.put('/', ensureAuthenticated, (request, response) => {
 // Editar produto
 // });
 
-// productsRouter.delete('/', (request, response) => {
+// productsRouter.delete('/', ensureAuthenticated, (request, response) => {
 // Remover um produto
 // });
 
