@@ -8,7 +8,7 @@ import OrdersRepository from '../repositories/OrdersRepository';
 interface Request {
   quantity: number;
   total_cost: number;
-  product_id: string;
+  product_id: number;
 }
 
 class CreateOrderService {

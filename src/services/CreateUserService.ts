@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
 import User from '../models/User';
-import UserRepository from '../repositories/UserRepository';
+import UserRepository from '../repositories/UsersRepository';
 
 interface Request {
   name: string;

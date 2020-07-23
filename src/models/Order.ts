@@ -22,7 +22,7 @@ class Order {
   total_cost: number;
 
   @Column()
-  product_id: string;
+  product_id: number;
 
   @OneToOne(() => Product)
   @JoinColumn({ name: 'product_id' })

@@ -12,7 +12,7 @@ ordersRouter.post(
     [Segments.BODY]: {
       quantity: Joi.number().required(),
       total_cost: Joi.number().required(),
-      product_id: Joi.string().required(),
+      product_id: Joi.number().required(),
     },
   }),
   async (request, response) => {
