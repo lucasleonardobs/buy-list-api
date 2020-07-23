@@ -3,7 +3,9 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import { getCustomRepository } from 'typeorm';
 
 import ProductsRepository from '../repositories/ProductsRepository';
+
 import CreateProductService from '../services/CreateProductService';
+import DeleteProductService from '../services/DeleteProductService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
@@ -47,8 +49,27 @@ productsRouter.post(
 // Editar produto
 // });
 
-// productsRouter.delete('/', ensureAuthenticated, (request, response) => {
-// Remover um produto
-// });
+productsRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.number().required(),
+    },
+  }),
+  ensureAuthenticated,
+  async (request, response) => {
+    try {
+      const { id } = request.params;
+
+      const deleteProduct = new DeleteProductService();
+
+      await deleteProduct.execute({ id: Number(id) });
+
+      return response.json({ message: 'Delete has been sucessly.' });
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  },
+);
 
 export default productsRouter;
