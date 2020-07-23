@@ -1,18 +1,17 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { getCustomRepository } from 'typeorm';
-
-import ProductsRepository from '../repositories/ProductsRepository';
+import { getRepository } from 'typeorm';
 
 import CreateProductService from '../services/CreateProductService';
 import DeleteProductService from '../services/DeleteProductService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import Product from '../models/Product';
 
 const productsRouter = Router();
 
 productsRouter.get('/', async (request, response) => {
-  const productsRepository = getCustomRepository(ProductsRepository);
+  const productsRepository = getRepository(Product);
   const products = await productsRepository.find();
 
   return response.json(products);
@@ -46,7 +45,7 @@ productsRouter.post(
 );
 
 // productsRouter.put('/', ensureAuthenticated, (request, response) => {
-// Editar produto
+//   const { name, id, description, unitPrice, category } = request.body;
 // });
 
 productsRouter.delete(
@@ -67,7 +66,7 @@ productsRouter.delete(
 
       return response.json({ message: 'Delete has been sucessly.' });
     } catch (err) {
-      return response.status(400).json({ error: err.message });
+      return response.status(err.statusCode).json({ error: err.message });
     }
   },
 );
