@@ -9,7 +9,6 @@ import CreateOrderService from '@modules/products/services/CreateOrderService';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const ordersRouter = Router();
-const ordersRepository = new OrdersRepository();
 
 ordersRouter.use(ensureAuthenticated);
 
@@ -23,6 +22,8 @@ ordersRouter.post(
     },
   }),
   async (request, response) => {
+    const ordersRepository = new OrdersRepository();
+
     const { quantity, total_cost, product_id } = request.body;
 
     const createProduct = new CreateOrderService(ordersRepository);

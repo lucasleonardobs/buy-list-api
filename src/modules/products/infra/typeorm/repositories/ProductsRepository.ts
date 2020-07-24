@@ -44,6 +44,12 @@ class ProductsRepository implements IProductsRepository {
 
     return CheckProductsExists;
   }
+
+  public async find(): Promise<Product[]> {
+    const products = await this.ormRepository.find();
+
+    return products;
+  }
 }
 
 export default ProductsRepository;

@@ -7,16 +7,18 @@ import DeleteProductService from '@modules/products/services/DeleteProductServic
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
+import ListProductService from '@modules/products/services/ListProductService';
 
 const productsRouter = Router();
-const productsRepository = new ProductsRepository();
 
-// productsRouter.get('/', async (request, response) => {
-//   const productsRepository = getRepository(Product);
-//   const products = await productsRepository.find();
+productsRouter.get('/', async (request, response) => {
+  const productsRepository = new ProductsRepository();
+  const listProductService = new ListProductService(productsRepository);
 
-//   return response.json(products);
-// });
+  const products = await listProductService.execute();
+
+  return response.json(products);
+});
 
 productsRouter.post(
   '/',
@@ -30,6 +32,8 @@ productsRouter.post(
   }),
   ensureAuthenticated,
   async (request, response) => {
+    const productsRepository = new ProductsRepository();
+
     const { name, description, unitPrice, category } = request.body;
 
     const createProduct = new CreateProductService(productsRepository);
@@ -58,13 +62,15 @@ productsRouter.delete(
   }),
   ensureAuthenticated,
   async (request, response) => {
+    const productsRepository = new ProductsRepository();
+
     const { id } = request.params;
 
     const deleteProduct = new DeleteProductService(productsRepository);
 
     await deleteProduct.execute({ id: Number(id) });
 
-    return response.json({ message: 'Delete has been sucessly.' });
+    return response.json({ message: 'Delete has been successful.' });
   },
 );
 

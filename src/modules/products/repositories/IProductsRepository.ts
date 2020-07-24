@@ -8,6 +8,7 @@ interface IProductsRepository {
   create(data: ICreateProductDTO): Promise<Product>;
   delete(data: IDeleteProductDTO): Promise<void>;
   findOne(data: ICheckProductsExists): Promise<Product | undefined>;
+  find(): Promise<Product[]>;
 }
 
 export default IProductsRepository;
