@@ -2,12 +2,9 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 const usersRouter = Router();
-
-// usersRouter.get('/', async (request, response) => {
-// list quantity
-// });
 
 usersRouter.post(
   '/',
@@ -19,9 +16,11 @@ usersRouter.post(
     },
   }),
   async (request, response) => {
+    const usersRepository = new UsersRepository();
+
     const { name, email, password } = request.body;
 
-    const createUser = new CreateUserService();
+    const createUser = new CreateUserService(usersRepository);
 
     const user = await createUser.execute({
       name,
@@ -36,11 +35,11 @@ usersRouter.post(
 );
 
 // usersRouter.put('/', (request, response) => {
-// Editar produto
+// Editar user
 // });
 
 // usersRouter.delete('/', (request, response) => {
-// Remover um produto
+// Remover um user
 // });
 
 export default usersRouter;

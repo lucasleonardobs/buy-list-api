@@ -1,9 +1,10 @@
 import { getRepository, Repository } from 'typeorm';
+
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
-
 import ICheckProductsExists from '@modules/products/dtos/ICheckProductsExists';
+
 import Product from '../entities/Product';
 
 class ProductsRepository implements IProductsRepository {
