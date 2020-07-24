@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 
 import Product from '../infra/typeorm/entities/Product';
 
-import ProductsRepository from '../repositories/ProductsRepository';
+import ProductsRepository from '../infra/typeorm/repositories/ProductsRepository';
 
 interface Request {
   name: string;

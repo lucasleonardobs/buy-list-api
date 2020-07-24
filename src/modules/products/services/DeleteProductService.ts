@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 
-import ProductsRepository from '../repositories/ProductsRepository';
+import ProductsRepository from '../infra/typeorm/repositories/ProductsRepository';
 
 interface Request {
   id: number;

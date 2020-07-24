@@ -5,8 +5,8 @@ import { sign } from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 
 import authConfig from '@config/auth';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import User from '../infra/typeorm/entities/User';
-import UsersRepository from '../repositories/UsersRepository';
 
 interface Request {
   email: string;

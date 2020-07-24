@@ -3,7 +3,7 @@ import { getCustomRepository } from 'typeorm';
 
 import Order from '../infra/typeorm/entities/Order';
 
-import OrdersRepository from '../repositories/OrdersRepository';
+import OrdersRepository from '../infra/typeorm/repositories/OrdersRepository';
 
 interface Request {
   quantity: number;

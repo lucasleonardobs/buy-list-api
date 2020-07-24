@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import Order from '../infra/typeorm/entities/Order';
+import Order from '../entities/Order';
 
 @EntityRepository(Order)
 class OrdersRepository extends Repository<Order> {}

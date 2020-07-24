@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 
 import AppError from '@shared/errors/AppError';
 
-import UsersRepository from '../repositories/UsersRepository';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 import User from '../infra/typeorm/entities/User';
 
