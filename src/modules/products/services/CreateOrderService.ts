@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
-import { getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 
 import Order from '../infra/typeorm/entities/Order';
+
+import OrdersRepository from '../repositories/OrdersRepository';
 
 interface Request {
   quantity: number;
@@ -15,7 +17,7 @@ class CreateOrderService {
     total_cost,
     product_id,
   }: Request): Promise<Order> {
-    const ordersRepository = getRepository(Order);
+    const ordersRepository = getCustomRepository(OrdersRepository);
 
     const order = ordersRepository.create({
       quantity,

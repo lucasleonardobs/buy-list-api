@@ -1,7 +1,8 @@
-import { getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
-import Product from '../infra/typeorm/entities/Product';
+
+import ProductsRepository from '../repositories/ProductsRepository';
 
 interface Request {
   id: number;
@@ -9,7 +10,7 @@ interface Request {
 
 class DeleteProductService {
   public async execute({ id }: Request): Promise<void> {
-    const productsRepository = getRepository(Product);
+    const productsRepository = getCustomRepository(ProductsRepository);
 
     const checkProductsExists = await productsRepository.findOne({
       where: { id },
