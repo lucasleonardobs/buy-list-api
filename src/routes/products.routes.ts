@@ -57,17 +57,13 @@ productsRouter.delete(
   }),
   ensureAuthenticated,
   async (request, response) => {
-    try {
-      const { id } = request.params;
+    const { id } = request.params;
 
-      const deleteProduct = new DeleteProductService();
+    const deleteProduct = new DeleteProductService();
 
-      await deleteProduct.execute({ id: Number(id) });
+    await deleteProduct.execute({ id: Number(id) });
 
-      return response.json({ message: 'Delete has been sucessly.' });
-    } catch (err) {
-      return response.status(err.statusCode).json({ error: err.message });
-    }
+    return response.json({ message: 'Delete has been sucessly.' });
   },
 );
 
