@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 
-import AppError from '../errors/AppError';
-import Product from '../models/Product';
+import AppError from '@shared/errors/AppError';
+import Product from '../infra/typeorm/entities/Product';
 
 interface Request {
   id: number;

@@ -2,8 +2,8 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import CreateOrderService from '../services/CreateOrderService';
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import CreateOrderService from '@modules/products/services/CreateOrderService';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const ordersRouter = Router();
 

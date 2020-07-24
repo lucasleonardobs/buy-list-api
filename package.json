@@ -7,8 +7,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "tsnd --transpile-only --ignore-watch node_modules src/server.ts",
-    "typeorm": "tsnd ./node_modules/typeorm/cli.js"
+    "dev:server": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "start": "ts-node src/shared/infra/http/server.ts",
+    "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.0",
@@ -35,6 +36,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.0.5",
     "ts-node-dev": "^1.0.0-pre.52",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.7"
   }
 }

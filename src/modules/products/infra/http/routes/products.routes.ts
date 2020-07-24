@@ -2,11 +2,11 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import { getRepository } from 'typeorm';
 
-import CreateProductService from '../services/CreateProductService';
-import DeleteProductService from '../services/DeleteProductService';
+import CreateProductService from '@modules/products/services/CreateProductService';
+import DeleteProductService from '@modules/products/services/DeleteProductService';
 
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
-import Product from '../models/Product';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 
 const productsRouter = Router();
 
