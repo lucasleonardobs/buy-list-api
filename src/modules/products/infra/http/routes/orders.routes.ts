@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { container } from 'tsyringe';
-
-import CreateOrderService from '@modules/products/services/CreateOrderService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
+import OrdersController from '../controllers/OrdersController';
+
 const ordersRouter = Router();
+const ordersController = new OrdersController();
 
 ordersRouter.use(ensureAuthenticated);
 
@@ -20,19 +20,7 @@ ordersRouter.post(
       product_id: Joi.number().required(),
     },
   }),
-  async (request, response) => {
-    const { quantity, total_cost, product_id } = request.body;
-
-    const createProduct = container.resolve(CreateOrderService);
-
-    const order = await createProduct.execute({
-      quantity,
-      total_cost,
-      product_id,
-    });
-
-    return response.json(order);
-  },
+  ordersController.create,
 );
 
 // ordersRouter.put('/', (request, response) => {

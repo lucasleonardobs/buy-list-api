@@ -2,13 +2,14 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import { container } from 'tsyringe';
 
-import CreateProductService from '@modules/products/services/CreateProductService';
-import DeleteProductService from '@modules/products/services/DeleteProductService';
 import ListProductService from '@modules/products/services/ListProductService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
+import ProductsController from '../controllers/ProductsController';
+
 const productsRouter = Router();
+const productsController = new ProductsController();
 
 productsRouter.get('/', async (request, response) => {
   const listProductService = container.resolve(ListProductService);
@@ -29,20 +30,7 @@ productsRouter.post(
     },
   }),
   ensureAuthenticated,
-  async (request, response) => {
-    const { name, description, unitPrice, category } = request.body;
-
-    const createProduct = container.resolve(CreateProductService);
-
-    const order = await createProduct.execute({
-      name,
-      description,
-      unitPrice,
-      category,
-    });
-
-    return response.json(order);
-  },
+  productsController.create,
 );
 
 // productsRouter.put('/', ensureAuthenticated, (request, response) => {
@@ -57,15 +45,7 @@ productsRouter.delete(
     },
   }),
   ensureAuthenticated,
-  async (request, response) => {
-    const { id } = request.params;
-
-    const deleteProduct = container.resolve(DeleteProductService);
-
-    await deleteProduct.execute({ id: Number(id) });
-
-    return response.json({ message: 'Delete has been successful.' });
-  },
+  productsController.delete,
 );
 
 export default productsRouter;
