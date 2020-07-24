@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-
-import OrdersRepository from '@modules/products/infra/typeorm/repositories/OrdersRepository';
+import { container } from 'tsyringe';
 
 import CreateOrderService from '@modules/products/services/CreateOrderService';
 
@@ -22,11 +21,9 @@ ordersRouter.post(
     },
   }),
   async (request, response) => {
-    const ordersRepository = new OrdersRepository();
-
     const { quantity, total_cost, product_id } = request.body;
 
-    const createProduct = new CreateOrderService(ordersRepository);
+    const createProduct = container.resolve(CreateOrderService);
 
     const order = await createProduct.execute({
       quantity,

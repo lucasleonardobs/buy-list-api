@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import Product from '../infra/typeorm/entities/Product';
 
 import IProductsRepository from '../repositories/IProductsRepository';
@@ -9,8 +10,12 @@ interface Request {
   category: string;
 }
 
+@injectable()
 class CreateProductService {
-  constructor(private productsRepository: IProductsRepository) {}
+  constructor(
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
+  ) {}
 
   public async execute({
     name,
