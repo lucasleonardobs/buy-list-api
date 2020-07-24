@@ -1,7 +1,13 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import User from '../entities/User';
 
-@EntityRepository(User)
-class UsersRepository extends Repository<User> {}
+class UsersRepository implements IUsersRepository {
+  private ormRepository: Repository<User>;
+
+  constructor() {
+    this.ormRepository = getRepository(User);
+  }
+}
 
 export default UsersRepository;

@@ -2,10 +2,14 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
+import OrdersRepository from '@modules/products/infra/typeorm/repositories/OrdersRepository';
+
 import CreateOrderService from '@modules/products/services/CreateOrderService';
+
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const ordersRouter = Router();
+const ordersRepository = new OrdersRepository();
 
 ordersRouter.use(ensureAuthenticated);
 
@@ -21,7 +25,7 @@ ordersRouter.post(
   async (request, response) => {
     const { quantity, total_cost, product_id } = request.body;
 
-    const createProduct = new CreateOrderService();
+    const createProduct = new CreateOrderService(ordersRepository);
 
     const order = await createProduct.execute({
       quantity,

@@ -1,31 +1,27 @@
 /* eslint-disable camelcase */
-import { getCustomRepository } from 'typeorm';
-
 import Order from '../infra/typeorm/entities/Order';
 
-import OrdersRepository from '../infra/typeorm/repositories/OrdersRepository';
+import IOrdersRepository from '../repositories/IOrdersRepository';
 
-interface Request {
+interface IRequest {
   quantity: number;
   total_cost: number;
   product_id: number;
 }
 
 class CreateOrderService {
+  constructor(private ordersRepository: IOrdersRepository) {}
+
   public async execute({
     quantity,
     total_cost,
     product_id,
-  }: Request): Promise<Order> {
-    const ordersRepository = getCustomRepository(OrdersRepository);
-
-    const order = ordersRepository.create({
+  }: IRequest): Promise<Order> {
+    const order = await this.ordersRepository.create({
       quantity,
       total_cost,
       product_id,
     });
-
-    await ordersRepository.save(order);
 
     return order;
   }

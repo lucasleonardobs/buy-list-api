@@ -1,8 +1,6 @@
-import { getCustomRepository } from 'typeorm';
-
 import Product from '../infra/typeorm/entities/Product';
 
-import ProductsRepository from '../infra/typeorm/repositories/ProductsRepository';
+import IProductsRepository from '../repositories/IProductsRepository';
 
 interface Request {
   name: string;
@@ -12,22 +10,20 @@ interface Request {
 }
 
 class CreateProductService {
+  constructor(private productsRepository: IProductsRepository) {}
+
   public async execute({
     name,
     description,
     unitPrice,
     category,
   }: Request): Promise<Product> {
-    const productsRepository = getCustomRepository(ProductsRepository);
-
-    const product = productsRepository.create({
+    const product = await this.productsRepository.create({
       name,
       description,
       unitPrice,
       category,
     });
-
-    await productsRepository.save(product);
 
     return product;
   }

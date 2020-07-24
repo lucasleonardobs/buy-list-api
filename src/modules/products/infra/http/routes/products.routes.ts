@@ -1,21 +1,22 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { getRepository } from 'typeorm';
 
 import CreateProductService from '@modules/products/services/CreateProductService';
 import DeleteProductService from '@modules/products/services/DeleteProductService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import Product from '@modules/products/infra/typeorm/entities/Product';
+
+import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
 const productsRouter = Router();
+const productsRepository = new ProductsRepository();
 
-productsRouter.get('/', async (request, response) => {
-  const productsRepository = getRepository(Product);
-  const products = await productsRepository.find();
+// productsRouter.get('/', async (request, response) => {
+//   const productsRepository = getRepository(Product);
+//   const products = await productsRepository.find();
 
-  return response.json(products);
-});
+//   return response.json(products);
+// });
 
 productsRouter.post(
   '/',
@@ -31,7 +32,7 @@ productsRouter.post(
   async (request, response) => {
     const { name, description, unitPrice, category } = request.body;
 
-    const createProduct = new CreateProductService();
+    const createProduct = new CreateProductService(productsRepository);
 
     const order = await createProduct.execute({
       name,
@@ -59,7 +60,7 @@ productsRouter.delete(
   async (request, response) => {
     const { id } = request.params;
 
-    const deleteProduct = new DeleteProductService();
+    const deleteProduct = new DeleteProductService(productsRepository);
 
     await deleteProduct.execute({ id: Number(id) });
 
