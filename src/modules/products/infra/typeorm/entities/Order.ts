@@ -5,9 +5,11 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 import Product from '@modules/products/infra/typeorm/entities/Product';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('orders')
 class Order {
@@ -15,11 +17,11 @@ class Order {
   id: string;
 
   @Column()
-  quantity: number;
+  user_id: string;
 
-  @Column()
-  // eslint-disable-next-line camelcase
-  total_cost: number;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column()
   product_id: number;
@@ -27,6 +29,13 @@ class Order {
   @OneToOne(() => Product)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  @Column()
+  quantity: number;
+
+  @Column()
+  // eslint-disable-next-line camelcase
+  total_cost: number;
 }
 
 export default Order;

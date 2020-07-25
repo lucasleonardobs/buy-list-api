@@ -18,6 +18,7 @@ ordersRouter.post(
       quantity: Joi.number().required(),
       total_cost: Joi.number().required(),
       product_id: Joi.number().required(),
+      user_id: Joi.string().uuid().required(),
     },
   }),
   ordersController.create,

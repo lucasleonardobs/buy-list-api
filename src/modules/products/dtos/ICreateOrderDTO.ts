@@ -5,6 +5,8 @@ interface ICreateOrderDTO {
   total_cost: number;
 
   product_id: number;
+
+  user_id: string;
 }
 
 export default ICreateOrderDTO;
