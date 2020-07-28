@@ -1,8 +1,10 @@
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
-import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 
+import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
+
 import ICheckProductsExists from '@modules/products/dtos/ICheckProductsExists';
+
 import Product from '../../infra/typeorm/entities/Product';
 
 class FakeProductsRepository implements IProductsRepository {
@@ -32,9 +34,8 @@ class FakeProductsRepository implements IProductsRepository {
   }
 
   public async delete({ id }: IDeleteProductDTO): Promise<void> {
-    const index = this.products.findIndex(product => product.id === id);
-
-    this.products.splice(index);
+    const filtered = this.products.filter(product => product.id !== id);
+    this.products = filtered;
   }
 
   public async findOne({
