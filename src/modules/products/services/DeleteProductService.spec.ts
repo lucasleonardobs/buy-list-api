@@ -23,9 +23,7 @@ describe('DeleteProduct', () => {
 
     expect(find).toBeUndefined();
   });
-});
 
-describe('CheckProductsExists', () => {
   it('should be able to check products exists.', async () => {
     const fakeProductsRepository = new FakeProductsRepository();
     const deleteProduct = new DeleteProductService(fakeProductsRepository);
