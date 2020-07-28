@@ -1,10 +1,17 @@
 import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository';
-import CreateProductService from './CreateProductService';
 
-describe('CreateProduct', () => {
-  it('should be able to create a new product', async () => {
+import CreateProductService from './CreateProductService';
+import ListProductService from './ListProductService';
+
+import Product from '../infra/typeorm/entities/Product';
+
+describe('ListProduct', () => {
+  it('should be able to list products.', async () => {
     const fakeProductsRepository = new FakeProductsRepository();
     const createProduct = new CreateProductService(fakeProductsRepository);
+    const listProduct = new ListProductService(fakeProductsRepository);
+
+    const products: Product[] = [];
 
     const product = await createProduct.execute({
       name: 'teste',
@@ -13,10 +20,10 @@ describe('CreateProduct', () => {
       category: 'teste',
     });
 
-    expect(product).toHaveProperty('id');
-    expect(product.name).toBe('teste');
-    expect(product.description).toBe('teste');
-    expect(product.unitPrice).toBe(123);
-    expect(product.category).toBe('teste');
+    products.push(product);
+
+    const productsList = await listProduct.execute();
+
+    expect(productsList).toStrictEqual(products);
   });
 });

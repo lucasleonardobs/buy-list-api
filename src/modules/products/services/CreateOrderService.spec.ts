@@ -1,9 +1,7 @@
-import 'reflect-metadata';
-
 import { uuid } from 'uuidv4';
 
-import CreateOrderService from './CreateOrderService';
 import FakeOrdersRepository from '../repositories/fakes/FakeOrdersRepository';
+import CreateOrderService from './CreateOrderService';
 
 describe('CreateOrder', () => {
   it('Should be able to create a new Order', async () => {
