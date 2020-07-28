@@ -15,11 +15,13 @@ class OrdersRepository implements IOrdersRepository {
     quantity,
     total_cost,
     product_id,
+    user_id,
   }: ICreateOrderDTO): Promise<Order> {
     const order = this.ormRepository.create({
       quantity,
       total_cost,
       product_id,
+      user_id,
     });
 
     await this.ormRepository.save(order);
