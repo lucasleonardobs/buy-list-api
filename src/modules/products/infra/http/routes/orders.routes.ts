@@ -11,6 +11,8 @@ const ordersController = new OrdersController();
 
 ordersRouter.use(ensureAuthenticated);
 
+ordersRouter.get('/', ensureAuthenticated, ordersController.show);
+
 ordersRouter.post(
   '/',
   celebrate({
@@ -21,15 +23,35 @@ ordersRouter.post(
       user_id: Joi.string().uuid().required(),
     },
   }),
+  ensureAuthenticated,
   ordersController.create,
 );
 
-// ordersRouter.put('/', (request, response) => {
-// Editar umpedido
-// });
+ordersRouter.put(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      quantity: Joi.number(),
+      total_cost: Joi.number(),
+      product_id: Joi.number(),
+    },
+  }),
+  ensureAuthenticated,
+  ordersController.update,
+);
 
-// ordersRouter.delete('/', (request, response) => {
-// Remover um pedido
-// });
+ordersRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  ensureAuthenticated,
+  ordersController.delete,
+);
 
 export default ordersRouter;
