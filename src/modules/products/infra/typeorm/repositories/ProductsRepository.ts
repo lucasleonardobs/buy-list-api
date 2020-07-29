@@ -5,6 +5,8 @@ import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
 import ICheckProductsExists from '@modules/products/dtos/ICheckProductsExists';
 
+import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
+import AppError from '@shared/errors/AppError';
 import Product from '../entities/Product';
 
 class ProductsRepository implements IProductsRepository {
@@ -50,6 +52,34 @@ class ProductsRepository implements IProductsRepository {
     const products = await this.ormRepository.find();
 
     return products;
+  }
+
+  public async update({
+    id,
+    name,
+    description,
+    unitPrice,
+    category,
+  }: IUpdateProductDTO): Promise<Product> {
+    const product = await this.ormRepository.findOne({
+      id,
+    });
+
+    if (!product) {
+      throw new AppError('Product not found', 404);
+    }
+
+    const updatedProduct = {
+      ...product,
+      name,
+      description,
+      unitPrice: Number(unitPrice),
+      category,
+    };
+
+    await this.ormRepository.save(updatedProduct);
+
+    return updatedProduct;
   }
 }
 
