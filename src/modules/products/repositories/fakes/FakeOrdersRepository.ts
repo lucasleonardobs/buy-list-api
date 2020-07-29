@@ -22,6 +22,12 @@ class FakeOrdersRepository implements IOrdersRepository {
 
     return order;
   }
+
+  public async update() {}
+
+  public async delete() {}
+
+  public async findOne() {}
 }
 
 export default FakeOrdersRepository;

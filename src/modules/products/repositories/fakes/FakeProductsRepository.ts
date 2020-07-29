@@ -5,6 +5,8 @@ import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
 
 import ICheckProductsExists from '@modules/products/dtos/ICheckProductsExists';
 
+import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
+import AppError from '@shared/errors/AppError';
 import Product from '../../infra/typeorm/entities/Product';
 
 class FakeProductsRepository implements IProductsRepository {
@@ -31,6 +33,27 @@ class FakeProductsRepository implements IProductsRepository {
     this.products.push(product);
 
     return product;
+  }
+
+  public async update({
+    id,
+    name,
+    description,
+    unitPrice,
+    category,
+  }: IUpdateProductDTO): Promise<Product> {
+    const findProduct = await this.products.find(product => product.id === id);
+
+    if (!findProduct) {
+      throw new AppError('Product not found', 404);
+    }
+
+    findProduct.name = name;
+    findProduct.description = description;
+    findProduct.unitPrice = Number(unitPrice);
+    findProduct.category = category;
+
+    return findProduct;
   }
 
   public async delete({ id }: IDeleteProductDTO): Promise<void> {
