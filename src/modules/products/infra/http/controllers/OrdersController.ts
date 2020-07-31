@@ -39,12 +39,16 @@ class OrdersController {
     return response.json(update);
   }
 
-  public async delete(request: Request, _: Response): Promise<void> {
+  public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
     const deleteOrder = container.resolve(DeleteOrderService);
 
-    deleteOrder.execute({ id });
+    await deleteOrder.execute({ id });
+
+    return response.json({
+      message: 'Order has been deleted with successful.',
+    });
   }
 
   public async show(_: Request, response: Response): Promise<Response> {
