@@ -7,7 +7,7 @@ import CreateOrderService from './CreateOrderService';
 import DeleteOrderService from './DeleteOrderService';
 
 describe('DeleteOrder', () => {
-  it('should be able to delete a order.', async () => {
+  it('should be able to delete a Order.', async () => {
     const fakeOrdersRepository = new FakeOrdersRepository();
     const createProduct = new CreateOrderService(fakeOrdersRepository);
     const deleteProduct = new DeleteOrderService(fakeOrdersRepository);

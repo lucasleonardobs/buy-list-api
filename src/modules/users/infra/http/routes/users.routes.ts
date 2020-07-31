@@ -1,29 +1,20 @@
 import { Router } from 'express';
-import { celebrate, Segments, Joi } from 'celebrate';
 
 import UsersController from '../controllers/UsersController';
+
+import validateCreateUser from '../validators/CreateUser';
 
 const usersRouter = Router();
 const usersController = new UsersController();
 
-usersRouter.post(
-  '/',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      email: Joi.string().required(),
-      password: Joi.string().required(),
-    },
-  }),
-  usersController.create,
-);
+usersRouter.post('/', validateCreateUser, usersController.create);
 
 // usersRouter.put('/', (request, response) => {
-// Editar user
+//  edit user
 // });
 
 // usersRouter.delete('/', (request, response) => {
-// Remover um user
+//  delete user
 // });
 
 export default usersRouter;

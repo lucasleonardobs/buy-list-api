@@ -1,63 +1,38 @@
 import { Router } from 'express';
-import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 import ProductsController from '../controllers/ProductsController';
+
+import validateShowProduct from '../validators/ShowProduct';
+import validateCreateProduct from '../validators/CreateProduct';
+import validateUpdateProduct from '../validators/UpdateProduct';
+import validateDeleteProduct from '../validators/DeleteProduct';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
 
 productsRouter.get('/', productsController.show);
 
-productsRouter.get(
-  '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().required(),
-    },
-  }),
-  productsController.index,
-);
+productsRouter.get('/:id', validateShowProduct, productsController.index);
 
 productsRouter.post(
   '/',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      description: Joi.string().required(),
-      unitPrice: Joi.number().required(),
-      category: Joi.string().required(),
-    },
-  }),
+  validateCreateProduct,
   ensureAuthenticated,
   productsController.create,
 );
 
 productsRouter.put(
   '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().required(),
-    },
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      description: Joi.string().required(),
-      unitPrice: Joi.number().required(),
-      category: Joi.string().required(),
-    },
-  }),
+  validateUpdateProduct,
   ensureAuthenticated,
   productsController.update,
 );
 
 productsRouter.delete(
   '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().required(),
-    },
-  }),
+  validateDeleteProduct,
   ensureAuthenticated,
   productsController.delete,
 );
