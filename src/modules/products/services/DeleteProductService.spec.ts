@@ -5,7 +5,7 @@ import DeleteProductService from './DeleteProductService';
 import CreateProductService from './CreateProductService';
 
 describe('DeleteProduct', () => {
-  it('should be able to delete a new product', async () => {
+  it('should be able to delete a Product', async () => {
     const fakeProductsRepository = new FakeProductsRepository();
     const createProduct = new CreateProductService(fakeProductsRepository);
     const deleteProduct = new DeleteProductService(fakeProductsRepository);

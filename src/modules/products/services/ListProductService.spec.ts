@@ -6,7 +6,7 @@ import ListProductService from './ListProductService';
 import Product from '../infra/typeorm/entities/Product';
 
 describe('ListProduct', () => {
-  it('should be able to list products.', async () => {
+  it('should be able to list Products.', async () => {
     const fakeProductsRepository = new FakeProductsRepository();
     const createProduct = new CreateProductService(fakeProductsRepository);
     const listProduct = new ListProductService(fakeProductsRepository);

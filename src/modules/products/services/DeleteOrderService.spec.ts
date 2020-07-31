@@ -6,7 +6,7 @@ import FakeOrdersRepository from '../repositories/fakes/FakeOrdersRepository';
 import CreateOrderService from './CreateOrderService';
 import DeleteOrderService from './DeleteOrderService';
 
-describe('DeleteProduct', () => {
+describe('DeleteOrder', () => {
   it('should be able to delete a order.', async () => {
     const fakeOrdersRepository = new FakeOrdersRepository();
     const createProduct = new CreateOrderService(fakeOrdersRepository);

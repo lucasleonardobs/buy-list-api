@@ -7,7 +7,7 @@ import ListOrdersService from './ListOrdersService';
 import Order from '../infra/typeorm/entities/Order';
 
 describe('ListOrder', () => {
-  it('should be able to list orders.', async () => {
+  it('should be able to list Orders.', async () => {
     const fakeOrdersRepository = new FakeOrdersRepository();
     const createOrder = new CreateOrderService(fakeOrdersRepository);
     const listOrder = new ListOrdersService(fakeOrdersRepository);

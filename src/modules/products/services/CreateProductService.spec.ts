@@ -2,7 +2,7 @@ import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository
 import CreateProductService from './CreateProductService';
 
 describe('CreateProduct', () => {
-  it('should be able to create a new product', async () => {
+  it('should be able to create a new Product', async () => {
     const fakeProductsRepository = new FakeProductsRepository();
     const createProduct = new CreateProductService(fakeProductsRepository);
 
