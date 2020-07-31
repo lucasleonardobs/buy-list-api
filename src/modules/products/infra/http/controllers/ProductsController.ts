@@ -10,9 +10,14 @@ import ShowOneProductService from '@modules/products/services/ShowOneProductServ
 
 class ProductsController {
   public async show(request: Request, response: Response): Promise<Response> {
+    const { page } = request.query;
     const listProductService = container.resolve(ListProductService);
 
-    const products = await listProductService.execute();
+    const { products, count } = await listProductService.execute({
+      page: Number(page),
+    });
+
+    response.header('X-Total-Count', `${count}`);
 
     return response.json(products);
   }

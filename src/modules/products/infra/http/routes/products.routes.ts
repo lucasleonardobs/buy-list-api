@@ -8,11 +8,12 @@ import validateShowProduct from '../validators/ShowProduct';
 import validateCreateProduct from '../validators/CreateProduct';
 import validateUpdateProduct from '../validators/UpdateProduct';
 import validateDeleteProduct from '../validators/DeleteProduct';
+import validatePaginateProducts from '../validators/PaginateProducts';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
 
-productsRouter.get('/', productsController.show);
+productsRouter.get('/', validatePaginateProducts, productsController.show);
 
 productsRouter.get('/:id', validateShowProduct, productsController.index);
 

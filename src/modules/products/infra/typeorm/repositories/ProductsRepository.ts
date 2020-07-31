@@ -1,13 +1,20 @@
 import { getRepository, Repository } from 'typeorm';
 
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
-import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
-import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
 import ICheckProductsExists from '@modules/products/dtos/ICheckProductsExists';
 
+import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IDeleteProductDTO from '@modules/products/dtos/IDeleteProductDTO';
+import IFindAllWithPaginationDTO from '@modules/products/dtos/IFindAllWithPaginationDTO';
 import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
+
 import AppError from '@shared/errors/AppError';
 import Product from '../entities/Product';
+
+interface IResponseFindAllWithPagination {
+  products: Product[];
+  count: number;
+}
 
 class ProductsRepository implements IProductsRepository {
   private ormRepository: Repository<Product>;
@@ -52,6 +59,22 @@ class ProductsRepository implements IProductsRepository {
     const products = await this.ormRepository.find();
 
     return products;
+  }
+
+  public async findAllWithPagination({
+    page,
+  }: IFindAllWithPaginationDTO): Promise<IResponseFindAllWithPagination> {
+    const query = this.ormRepository
+      .createQueryBuilder('products')
+      .take(8)
+      .skip((page - 1) * 8);
+
+    const [products, count] = await query.getManyAndCount();
+
+    return {
+      products,
+      count,
+    };
   }
 
   public async update({

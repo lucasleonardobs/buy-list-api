@@ -2,6 +2,15 @@ import { inject, injectable } from 'tsyringe';
 import IProductsRepository from '../repositories/IProductsRepository';
 import Product from '../infra/typeorm/entities/Product';
 
+interface IRequest {
+  page: number;
+}
+
+interface IResponse {
+  products: Product[];
+  count: number;
+}
+
 @injectable()
 class ListProductService {
   constructor(
@@ -9,10 +18,15 @@ class ListProductService {
     private productsRepository: IProductsRepository,
   ) {}
 
-  public async execute(): Promise<Product[]> {
-    const products = await this.productsRepository.find();
+  public async execute({ page }: IRequest): Promise<IResponse> {
+    const {
+      products,
+      count,
+    } = await this.productsRepository.findAllWithPagination({
+      page: Number(page),
+    });
 
-    return products;
+    return { products, count };
   }
 }
 
