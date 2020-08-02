@@ -18,6 +18,7 @@ class ProductsController {
     });
 
     response.header('X-Total-Count', `${count}`);
+    response.header('Access-Control-Expose-Headers', 'X-Total-Count');
 
     return response.json(products);
   }

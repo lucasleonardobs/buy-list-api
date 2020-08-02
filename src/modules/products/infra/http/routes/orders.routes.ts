@@ -8,13 +8,19 @@ import OrdersController from '../controllers/OrdersController';
 import validateCreateOrder from '../validators/CreateOrder';
 import validateUpdateOrder from '../validators/UpdateOrder';
 import validateDeleteOrder from '../validators/DeleteOrder';
+import validateShowOrder from '../validators/ShowOrder';
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 
 ordersRouter.use(ensureAuthenticated);
 
-ordersRouter.get('/', ensureAuthenticated, ordersController.show);
+ordersRouter.get(
+  '/:user_id',
+  ensureAuthenticated,
+  validateShowOrder,
+  ordersController.show,
+);
 
 ordersRouter.post(
   '/',

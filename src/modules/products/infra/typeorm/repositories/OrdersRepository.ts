@@ -10,6 +10,7 @@ import IDeleteOrderDTO from '@modules/products/dtos/IDeleteOrderDTO';
 import ICheckOrdersExists from '@modules/products/dtos/ICheckOrdersExists';
 
 import AppError from '@shared/errors/AppError';
+import IShowOrderDTO from '@modules/products/dtos/IShowOrderDTO';
 import Order from '../entities/Order';
 
 class OrdersRepository implements IOrdersRepository {
@@ -19,8 +20,8 @@ class OrdersRepository implements IOrdersRepository {
     this.ormRepository = getRepository(Order);
   }
 
-  public async find(): Promise<Order[]> {
-    const orders = await this.ormRepository.find();
+  public async find({ user_id }: IShowOrderDTO): Promise<Order[]> {
+    const orders = await this.ormRepository.find({ user_id });
 
     return orders;
   }

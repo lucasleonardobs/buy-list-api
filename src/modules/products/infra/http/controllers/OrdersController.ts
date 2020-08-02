@@ -11,9 +11,9 @@ class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { quantity, total_cost, product_id, user_id } = request.body;
 
-    const createProduct = container.resolve(CreateOrderService);
+    const createOrder = container.resolve(CreateOrderService);
 
-    const order = await createProduct.execute({
+    const order = await createOrder.execute({
       quantity,
       total_cost,
       product_id,
@@ -51,10 +51,11 @@ class OrdersController {
     });
   }
 
-  public async show(_: Request, response: Response): Promise<Response> {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { user_id } = request.params;
     const listOrderService = container.resolve(ListOrdersService);
 
-    const orders = await listOrderService.execute();
+    const orders = await listOrderService.execute({ user_id });
 
     return response.json(orders);
   }

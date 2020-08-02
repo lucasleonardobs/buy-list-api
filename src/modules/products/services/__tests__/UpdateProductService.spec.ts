@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository';
-import CreateProductService from './CreateProductService';
-import UpdateProductService from './UpdateProductService';
+import FakeProductsRepository from '../../repositories/fakes/FakeProductsRepository';
+import CreateProductService from '../CreateProductService';
+import UpdateProductService from '../UpdateProductService';
 
 describe('UpdateProduct', () => {
   it('Should be able to update a Product', async () => {

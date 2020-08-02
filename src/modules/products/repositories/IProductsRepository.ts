@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ICreateProductDTO from '../dtos/ICreateProductDTO';
 import IDeleteProductDTO from '../dtos/IDeleteProductDTO';
 import ICheckProductsExists from '../dtos/ICheckProductsExists';

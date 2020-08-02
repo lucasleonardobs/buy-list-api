@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository';
+import FakeProductsRepository from '../../repositories/fakes/FakeProductsRepository';
 
-import CreateProductService from './CreateProductService';
-import ShowOneProductService from './ShowOneProductService';
+import CreateProductService from '../CreateProductService';
+import ShowOneProductService from '../ShowOneProductService';
 
 describe('ShowOneProduct', () => {
   it('should be able to show one Product.', async () => {

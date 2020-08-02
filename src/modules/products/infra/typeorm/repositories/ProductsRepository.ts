@@ -67,7 +67,8 @@ class ProductsRepository implements IProductsRepository {
     const query = this.ormRepository
       .createQueryBuilder('products')
       .take(8)
-      .skip((page - 1) * 8);
+      .skip((page - 1) * 8)
+      .orderBy('products.id', 'ASC');
 
     const [products, count] = await query.getManyAndCount();
 

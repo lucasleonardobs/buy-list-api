@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository';
+import FakeProductsRepository from '../../repositories/fakes/FakeProductsRepository';
 
-import DeleteProductService from './DeleteProductService';
-import CreateProductService from './CreateProductService';
+import DeleteProductService from '../DeleteProductService';
+import CreateProductService from '../CreateProductService';
 
 describe('DeleteProduct', () => {
   it('should be able to delete a Product', async () => {

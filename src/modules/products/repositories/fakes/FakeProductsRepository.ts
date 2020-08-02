@@ -9,6 +9,15 @@ import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
 import AppError from '@shared/errors/AppError';
 import Product from '../../infra/typeorm/entities/Product';
 
+interface IFindAllWithPaginationDTO {
+  page: number;
+}
+
+interface IResponseFindAllWithPagination {
+  products: Product[];
+  count: number;
+}
+
 class FakeProductsRepository implements IProductsRepository {
   private products: Product[] = [];
 
@@ -67,6 +76,23 @@ class FakeProductsRepository implements IProductsRepository {
     const findProduct = this.products.find(product => product.id === id);
 
     return findProduct;
+  }
+
+  public async findAllWithPagination(
+    data: IFindAllWithPaginationDTO,
+  ): Promise<IResponseFindAllWithPagination> {
+    const { page } = data;
+    const { products } = this;
+
+    const take = 8;
+
+    const startPoint = page * take - take;
+    const finishPoint = page * take;
+
+    const productsPaginate = products.splice(startPoint, finishPoint);
+    const count = products.length;
+
+    return { products: productsPaginate, count };
   }
 
   public async find(): Promise<Product[]> {
