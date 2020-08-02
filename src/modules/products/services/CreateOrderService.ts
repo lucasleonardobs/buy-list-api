@@ -25,7 +25,6 @@ class CreateOrderService {
 
   public async execute({
     quantity,
-    total_cost,
     product_id,
     user_id,
   }: IRequest): Promise<Order> {
